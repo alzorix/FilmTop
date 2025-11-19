@@ -37,7 +37,7 @@ class Movie():
             self._rating = value
         else:
             raise ValueError("Рейтинг должен быть от 0 до 10")
-    def add_rating(self, value:float): #Когда пользователь ставит оценку
+    def add_rating(self, value:float): #метод для пользователя: пользователь ставит оценку свою,и общая оценка тоже изменяется
         if 0 <= value <= 10:
             current_rating = self._rating
             current_rating_count = self._rating_count
