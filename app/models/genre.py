@@ -1,5 +1,5 @@
 
-class Пenre():
+class Genre():
     def __init__(self, id:int,name:str):
         self._id = id
         self._name = name
