@@ -9,4 +9,3 @@ class Genre():
     @property
     def name(self):
         return self._name
-
