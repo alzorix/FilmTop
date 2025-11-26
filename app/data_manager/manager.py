@@ -71,6 +71,15 @@ class Data_Manager(ABC):
     def read_all_data(self): # Если в моём коде лень разбираться - получаете данные и работаете с ними как хотите.
         return self.manager.read_data()
 
+    def hard_write_data(self, data: dict):
+        # Если в моём коде лень разбираться - После  read_all_data изменённый словарь кидаете сюда
+        #По идеи должно работать
+        """
+        Универсальный метод записи словаря в файл.
+        data: словарь, где ключи — ID, значения — объекты User или словари
+        """
+        self.manager.write_data(data)
+
     def get_data_for_index(self, index):
         data = self.manager.read_data()
         key = str(index)
@@ -81,6 +90,8 @@ class Data_Manager(ABC):
         if isinstance(item, dict):
             return self._cls.from_dict(item)
         return item
+
+
 
 class User_Manager(Data_Manager):
     def __init__(self, data_path=user_data_path, data_manager:Data_File_Worker=Json_File_Worker):
