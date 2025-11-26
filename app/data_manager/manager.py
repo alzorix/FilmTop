@@ -37,10 +37,14 @@ class Json_File_Worker(Data_File_Worker):
             return {}
     def write_data(self, data: dict):
         #Проще говоря,берём наш список и приводим к виду: id: класс в виде словаря. Если класс уже словарь- не трогаем
-        temp_dict = {str(key): class_data.to_dict() if (isinstance(class_data, User) or  isinstance(class_data, Movie) or isinstance(class_data, Genre) )  else class_data for key, class_data in data.items()}
-        with open(self._file_path, 'w', encoding='utf-8') as outfile:
-            json.dump(temp_dict, outfile)
-
+        temp_dict = {}
+        for key, value in data.items():
+            if hasattr(value, "to_dict"):
+                temp_dict[str(key)] = value.to_dict()
+            else:
+                temp_dict[str(key)] = value
+        with open(self._file_path, 'w', encoding='utf-8') as f:
+            json.dump(temp_dict, f)
 
 class Data_Manager(ABC):
     def __init__(self, data_path,data_manager:Data_File_Worker,cls): #data_manager - это класс,внутри создаётся объект
@@ -80,7 +84,7 @@ class Data_Manager(ABC):
 
 class User_Manager(Data_Manager):
     def __init__(self, data_path=user_data_path, data_manager:Data_File_Worker=Json_File_Worker):
-        #  В data_manager нужен класс
+        #  В data_manager нужно передавать класс,не обьект класса.
         super().__init__(data_path, data_manager,User)
 
     def add(self, nickname: str, movie_history=None, preferred_genres=None) -> User:
