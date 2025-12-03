@@ -9,7 +9,7 @@ class User:
             id (int): Уникальный идентификатор.
             nickname (str): Никнейм пользователя.
             movie_history_with_rating (dict, optional): История просмотров с рейтингами.
-            preferred_genres (list, optional): Список предпочтительных жанров.
+            preferred_genres (list, optional): Список id предпочтительных жанров.
         """
         self.__id = id
         self.__nickname = nickname
@@ -37,7 +37,7 @@ class User:
 
     @property
     def preferred_genres(self) -> list:
-        """Список предпочтительных жанров."""
+        """Список id предпочтительных жанров."""
         return self.__preferred_genres
 
     def add_preferred_genres(self, genre_ids: list):
