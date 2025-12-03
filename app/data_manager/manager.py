@@ -11,6 +11,7 @@ user_data_path = "../../data/user_data.json"
 genre_data_path = "../../data/genre_data.json"
 movie_data_path = "../../data/movie_data.json"
 
+
 class Data_File_Worker(ABC):
     def __init__(self, filename):
         self._file_path = filename
@@ -45,6 +46,7 @@ class Json_File_Worker(Data_File_Worker):
                 temp_dict[str(key)] = value
         with open(self._file_path, 'w', encoding='utf-8') as f:
             json.dump(temp_dict, f)
+
 
 class Data_Manager(ABC):
     def __init__(self, data_path,data_manager:Data_File_Worker,cls): #data_manager - это класс,внутри создаётся объект
@@ -210,17 +212,22 @@ class Movie_Manager(Data_Manager):
         self.manager.write_data(data)
         return movie
 
-#Выборочная проверка работоспособности
-# user_managa = User_manager()
-# test = user_managa.add("Petya",{1:8.00},[1,2])
-# user_managa.remove(test.id-1)
-#
-# genre_managa = Genre_manager()
-# test_genre = genre_managa.add("Petya")
+#Выборочная проверка работоспособности/тестовая база
+# user_managa = User_Manager()
+# test = user_managa.add("Alexander",{1:8.00},[1,2])
+# test = user_managa.add("Amir",{1:1.00,2:10.00,3:10.00},[1,2,3])
+# #user_managa.remove(test.id-1)
+# print(user_managa.read_all_data())
+# genre_managa = Genre_Manager()
+# test_genre = genre_managa.add("Боевик")
+# test_genre = genre_managa.add("Драма")
+# test_genre = genre_managa.add("Комедия")
 # test_genre = genre_managa.read_all_data()
 # print(test_genre)
 #
-# movie_managa = Movie_manager()
-# test_movie = movie_managa.add("Petya",{"1":100},"Пушкин",release_year=1999)
+# movie_managa = Movie_Manager()
+# test_movie = movie_managa.add("Война и Мир",[2],"Советский чел",release_year=1980)
+# test_movie = movie_managa.add("Американский Солдат",[1,3],"Американский чел",release_year=2002)
+# test_movie = movie_managa.add("Путешествия Ивана",[1,2,3],"Иван",release_year=2025)
 # test_movie = movie_managa.read_all_data()
 # print(test_movie)
