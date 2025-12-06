@@ -88,7 +88,7 @@ class Data_Manager(ABC):
         """
         self.manager.write_data(data)
 
-    def get_data_for_index(self, index):
+    def get_class_for_index(self, index):
 
         data = self.manager.read_data()
         key = str(index)
