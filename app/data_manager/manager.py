@@ -72,7 +72,7 @@ class Data_Manager(ABC):
             raise KeyError(f"ID {id} не найден")
     def read_all_data(self): # Если в моём коде лень разбираться - получаете данные и работаете с ними как хотите.
         return self.manager.read_data()
-    
+
     def read_all_data_as_class(self):
         data = self.manager.read_data()
         data = list([data.get(elem) for elem in data])
@@ -89,12 +89,15 @@ class Data_Manager(ABC):
         self.manager.write_data(data)
 
     def get_data_for_index(self, index):
+
         data = self.manager.read_data()
         key = str(index)
         item = data.get(key)
+
         if item is None:
             raise KeyError(f"ID {index} не найден")
         # Делаем точно класс
+
         if isinstance(item, dict):
             return self._cls.from_dict(item)
         return item
@@ -103,6 +106,7 @@ class Data_Manager(ABC):
 
 class User_Manager(Data_Manager):
     def __init__(self, data_path=user_data_path, data_manager:Data_File_Worker=Json_File_Worker):
+
         #  В data_manager нужно передавать класс,не обьект класса.
         super().__init__(data_path, data_manager,User)
 
@@ -121,30 +125,17 @@ class User_Manager(Data_Manager):
 
         new_user = User(new_id, nickname, movie_history, preferred_genres)
 
-
         data[str(new_id)] = new_user
-
 
         self.manager.write_data(data)
 
         return new_user
 
-    def update(self, id, nickname=None, movie_history=None, preferred_genres=None) -> User:
+    def update(self, user:User) -> User:
         data = self.manager.read_data()
-        str_id = str(id)
+        str_id = str(user.id)
         if str_id not in data:
             raise KeyError(f"Такого ID не существует")
-
-        user_data = data[str_id]
-        user = User.from_dict(user_data) if isinstance(user_data, dict) else user_data
-
-        if nickname is not None:
-            user.nickname = nickname
-        if movie_history is not None:
-            for m_id, rating in movie_history.items():
-                user.add_movie_history(m_id, rating)
-        if preferred_genres is not None:
-            user.add_preferred_genres(preferred_genres)
         data[str_id] = user
         self.manager.write_data(data)
         return user
@@ -156,7 +147,6 @@ class Genre_Manager(Data_Manager):
 
     def add(self, movie_name):
         data = self.manager.read_data() or {}
-
         # Определяем новый ID: максимум существующих + 1
         if data:
             new_id = max(int(k) for k in data.keys()) + 1
@@ -167,14 +157,11 @@ class Genre_Manager(Data_Manager):
         self.manager.write_data(data)
         return new_genre
 
-    def update(self, id, name):
+    def update(self, genre:Genre) -> Genre:
         data = self.manager.read_data()
-        str_id = str(id)
+        str_id = str(genre.id)
         if str_id not in data:
             raise KeyError(f"Такого ID не существует")
-        genre_data = data[str_id]
-        genre = Genre.from_dict(genre_data) if isinstance(genre_data, dict) else genre_data
-        genre.name = name
         data[str_id] = genre
         self.manager.write_data(data)
         return genre
@@ -183,8 +170,10 @@ class Genre_Manager(Data_Manager):
 
 
 class Movie_Manager(Data_Manager):
+
     def __init__(self, data_path=movie_data_path, data_manager=Json_File_Worker):
         super().__init__(data_path, data_manager,Movie)
+
     def add(self, movie_name,genres_id,director,release_year):
         data = self.manager.read_data() or {}
 
@@ -197,23 +186,12 @@ class Movie_Manager(Data_Manager):
         data[str(new_id)] = new_movie
         self.manager.write_data(data)
         return new_movie
-    def update(self, id, title=None, genres_id=None, director=None, release_year=None):
+
+    def update(self, movie:Movie) -> Movie:
         data = self.manager.read_data()
-        str_id = str(id)
+        str_id = str(movie.id)
         if str_id not in data:
             raise KeyError(f"Такого ID не существует")
-        movie_data = data[str_id]
-        movie = Movie.from_dict(movie_data) if isinstance(movie_data, dict) else movie_data
-
-        if title is not None:
-            movie.title = title
-        if genres_id is not None:
-            movie._genres_id = genres_id
-        if director is not None:
-            movie.director = director
-        if release_year is not None:
-            movie.release_year = release_year
-
         data[str_id] = movie
         self.manager.write_data(data)
         return movie
