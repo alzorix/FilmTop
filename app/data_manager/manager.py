@@ -7,10 +7,13 @@ from app.models.user import User
 
 from app.models.movie import Movie
 
-user_data_path = "../../data/user_data.json"
-genre_data_path = "../../data/genre_data.json"
-movie_data_path = "../../data/movie_data.json"
+import os
 
+DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
+
+user_data_path = os.path.join(DATA_DIR, "user_data.json")
+movie_data_path = os.path.join(DATA_DIR, "movie_data.json")
+genre_data_path = os.path.join(DATA_DIR, "genre_data.json")
 
 class Data_File_Worker(ABC):
     def __init__(self, filename):
@@ -34,16 +37,19 @@ class Json_File_Worker(Data_File_Worker):
             with open(self._file_path, 'r', encoding='utf-8') as f:
                 return json.load(f)
         except (FileNotFoundError, json.JSONDecodeError):
-            print("Файл не найден")
+            print("Файл не найден, вернем пустой словарь")
             return {}
+
     def write_data(self, data: dict):
-        #Проще говоря,берём наш список и приводим к виду: id: класс в виде словаря. Если класс уже словарь- не трогаем
+        os.makedirs(os.path.dirname(self._file_path), exist_ok=True)
+
         temp_dict = {}
         for key, value in data.items():
             if hasattr(value, "to_dict"):
                 temp_dict[str(key)] = value.to_dict()
             else:
                 temp_dict[str(key)] = value
+
         with open(self._file_path, 'w', encoding='utf-8') as f:
             json.dump(temp_dict, f, indent=4)
 
