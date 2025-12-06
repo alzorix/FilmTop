@@ -45,7 +45,7 @@ class Json_File_Worker(Data_File_Worker):
             else:
                 temp_dict[str(key)] = value
         with open(self._file_path, 'w', encoding='utf-8') as f:
-            json.dump(temp_dict, f)
+            json.dump(temp_dict, f, indent=4)
 
 
 class Data_Manager(ABC):
@@ -72,6 +72,12 @@ class Data_Manager(ABC):
             raise KeyError(f"ID {id} не найден")
     def read_all_data(self): # Если в моём коде лень разбираться - получаете данные и работаете с ними как хотите.
         return self.manager.read_data()
+    
+    def read_all_data_as_class(self):
+        data = self.manager.read_data()
+        data = list([data.get(elem) for elem in data])
+        data = [(lambda elem: self._cls.from_dict(elem))(elem) for elem in data]
+        return data
 
     def hard_write_data(self, data: dict):
         # Если в моём коде лень разбираться - После  read_all_data изменённый словарь кидаете сюда

@@ -1,4 +1,4 @@
-from base import RecommendationStrategy
+from app.recomendations.base import RecommendationStrategy
 from app.models.user import User
 from app.data_manager.manager import Movie_Manager,User_Manager
 
@@ -10,14 +10,13 @@ class GenreRecommendationStrategy(RecommendationStrategy):
         recommend_movie_id = set()
         movie_history_with_rating = self.user.movie_history_with_rating
         preferred_genres = self.user.preferred_genres
-        movies_data = self.movie_manager.read_all_data()
+        movies_data = self.movie_manager.read_all_data_as_class()
 
-
-        for id,movie_dict in movies_data.items():
-            if str(id) not in movie_history_with_rating.keys():
+        for movie in movies_data:
+            if str(movie.id) not in movie_history_with_rating.keys():
                 for current_genre_id in preferred_genres:
-                    if current_genre_id in movie_dict["genres_id"]:
-                        recommend_movie_id.append(id)
+                    if current_genre_id in movie.genres_id:
+                        recommend_movie_id.add(movie.id)
         return recommend_movie_id
 
 
