@@ -15,14 +15,17 @@ class SimilarUsersRecommendationStrategy(RecommendationStrategy):
         matches = 0
         total = set()
 
-        for other_user in users_data:
-            for genre in preferred_genres:
-                for another_preference in other_user.preferred_genres:
-                    total.add(another_preference)
-                    if genre == another_preference:
-                        matches += 1
-            if matches/len(preferred_genres) > 0.5:
-                for id in other_user.movie_history_with_rating.keys():
-                    if str(id) not in movie_history_with_rating.keys():
-                        recommend_movie_id.add(id)
-        return recommend_movie_id
+        if len(preferred_genres) != 0:
+            for other_user in users_data:
+                for genre in preferred_genres:
+                    for another_preference in other_user.preferred_genres:
+                        total.add(another_preference)
+                        if genre == another_preference:
+                            matches += 1
+                if matches/len(preferred_genres) > 0.5:
+                    for id in other_user.movie_history_with_rating.keys():
+                        if str(id) not in movie_history_with_rating.keys():
+                            recommend_movie_id.add(id)
+            return recommend_movie_id
+        else:
+            return 'Сначала выберите любимые жанры'
