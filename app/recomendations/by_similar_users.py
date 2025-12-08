@@ -13,13 +13,11 @@ class SimilarUsersRecommendationStrategy(RecommendationStrategy):
         preferred_genres = self.user.preferred_genres
         users_data = self.user_manager.read_all_data_as_class()
         matches = 0
-        total = set()
 
         if len(preferred_genres) != 0:
             for other_user in users_data:
                 for genre in preferred_genres:
                     for another_preference in other_user.preferred_genres:
-                        total.add(another_preference)
                         if genre == another_preference:
                             matches += 1
                 if matches/len(preferred_genres) > 0.5:
