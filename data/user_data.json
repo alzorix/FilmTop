@@ -1,27 +1,35 @@
 {
-  "1": {
-    "id": 1,
-    "nickname": "Alexander",
-    "movie_history_with_rating": {
-      "1": 8.0
+    "1": {
+        "id": 1,
+        "nickname": "Alexander",
+        "movie_history_with_rating": {
+            "1": 8.0
+        },
+        "preferred_genres": [
+            1,
+            2
+        ]
     },
-    "preferred_genres": [
-      1,
-      2
-    ]
-  },
-  "2": {
-    "id": 2,
-    "nickname": "Amir",
-    "movie_history_with_rating": {
-      "1": 1.0,
-      "2": 10.0,
-      "3": 10.0
+    "2": {
+        "id": 2,
+        "nickname": "Amir",
+        "movie_history_with_rating": {
+            "1": 1.0,
+            "2": 10.0,
+            "3": 10.0
+        },
+        "preferred_genres": [
+            1,
+            2,
+            3
+        ]
     },
-    "preferred_genres": [
-      1,
-      2,
-      3
-    ]
-  }
+    "3": {
+        "id": 3,
+        "nickname": "stuyk",
+        "movie_history_with_rating": {
+            "3": 10.0
+        },
+        "preferred_genres": []
+    }
 }
