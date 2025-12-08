@@ -31,11 +31,18 @@ class UserService:
 
     def rate_movie(self, user_id: int, movie_id: int, rating: float):
         user = self.user_manager.get_class_for_index(str(user_id))
+        current_movie = self.movie_manager.get_class_for_index(str(movie_id))
+
         if user is None:
             print("Пользователь не найден")
             return None
 
         user.movie_history_with_rating[str(movie_id)] = float(rating)
+
+        current_movie.add_rating(rating)
+
+
+        self.movie_manager.update(current_movie)
         self.user_manager.update(user)
         return user
 
@@ -51,6 +58,7 @@ class UserService:
         rec |= SimilarUsersRecommendationStrategy(user).get_recommendations()
 
         movies = []
+        rec = {str(mid) for mid in rec}
         for mid in rec:
             m = self.movie_manager.get_class_for_index(str(mid))
             if m:
