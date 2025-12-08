@@ -58,6 +58,7 @@ class UserService:
         rec |= SimilarUsersRecommendationStrategy(user).get_recommendations()
 
         movies = []
+        rec = {str(mid) for mid in rec}
         for mid in rec:
             m = self.movie_manager.get_class_for_index(str(mid))
             if m:
