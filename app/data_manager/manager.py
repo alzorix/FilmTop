@@ -6,10 +6,9 @@ from app.models.genre import Genre
 from app.models.user import User
 from app.models.movie import Movie
 
-# Корень проекта и папка data
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DATA_DIR = os.path.join(BASE_DIR, "data")
-os.makedirs(DATA_DIR, exist_ok=True)  # создаём папку, если нет
+os.makedirs(DATA_DIR, exist_ok=True)
 
 user_data_path = os.path.join(DATA_DIR, "user_data.json")
 movie_data_path = os.path.join(DATA_DIR, "movie_data.json")
@@ -38,7 +37,6 @@ class Json_File_Worker(Data_File_Worker):
             with open(self._file_path, 'r', encoding='utf-8') as f:
                 return json.load(f)
         except (FileNotFoundError, json.JSONDecodeError):
-            print("Файл не найден, вернем пустой словарь")
             return {}
 
     def write_data(self, data: dict):
@@ -47,7 +45,7 @@ class Json_File_Worker(Data_File_Worker):
         for key, value in data.items():
             temp_dict[str(key)] = value.to_dict() if hasattr(value, "to_dict") else value
         with open(self._file_path, 'w', encoding='utf-8') as f:
-            json.dump(temp_dict, f, indent=4)
+            json.dump(temp_dict, f, indent=4, ensure_ascii=False)
 
 
 class Data_Manager(ABC):
@@ -158,7 +156,6 @@ class Movie_Manager(Data_Manager):
         data[str_id] = movie
         self.manager.write_data(data)
         return movie
-
 
 #Выборочная проверка работоспособности/тестовая база
 # user_managa = User_Manager()
