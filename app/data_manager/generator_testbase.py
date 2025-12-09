@@ -1,799 +1,510 @@
-{
-    "1": {
-        "id": 1,
-        "title": "Война и Мир",
-        "genres_id": [
-            2
-        ],
-        "director": "Советский чел",
-        "release_year": 1980,
-        "rating": 0.0,
-        "rating_count": 0
-    },
-    "2": {
-        "id": 2,
-        "title": "Американский Солдат",
-        "genres_id": [
-            1,
-            3
-        ],
-        "director": "Американский чел",
-        "release_year": 2002,
-        "rating": 0.0,
-        "rating_count": 0
-    },
-    "3": {
-        "id": 3,
-        "title": "Путешествия Ивана",
-        "genres_id": [
-            1,
-            2,
-            3
-        ],
-        "director": "Иван",
-        "release_year": 2025,
-        "rating": 10.0,
-        "rating_count": 1
-    },
-    "4": {
-        "id": 4,
+genres = [
+    "Боевик", "Приключения", "Комедия", "Драма", "Триллер",
+    "Ужасы", "Фантастика", "Фэнтези", "Мелодрама", "Детектив",
+    "Криминал", "Исторический", "Военный", "Музыкальный", "Мюзикл",
+    "Анимация", "Документальный", "Спортивный", "Семейный", "Биографический",
+    "Романтический", "Сюрреализм", "Мистика", "Психологический", "Постапокалипсис"
+]
+import manager
+
+genre_manager = manager.Genre_Manager()
+
+# for genre_name in genres:
+#     added_genre = genre_manager.add(genre_name)
+#     print(f"Добавлен жанр: {added_genre.id} - {added_genre.name}")
+#
+
+
+
+movie_manager = manager.Movie_Manager()
+
+
+
+
+movies_list = [
+    {
         "title": "Бегемот в тапочках",
-        "genres_id": [
-            3,
-            19
-        ],
+        "genres_id": [3, 19],
         "director": "Василий Шуткин",
         "release_year": 2022,
         "rating": 7.4,
         "rating_count": 1583
     },
-    "5": {
-        "id": 5,
+    {
         "title": "Тарелка на Луне",
-        "genres_id": [
-            7,
-            8,
-            22
-        ],
+        "genres_id": [7, 8, 22],
         "director": "Марфа Луновская",
         "release_year": 2025,
         "rating": 8.1,
         "rating_count": 924
     },
-    "6": {
-        "id": 6,
+    {
         "title": "Дядя Фёдор против холодильника",
-        "genres_id": [
-            1,
-            2,
-            3
-        ],
+        "genres_id": [1, 2, 3],
         "director": "Игорь Блинчик",
         "release_year": 2019,
         "rating": 6.9,
         "rating_count": 2041
     },
-    "7": {
-        "id": 7,
+    {
         "title": "Танцы с кактусами",
-        "genres_id": [
-            15,
-            14,
-            3
-        ],
+        "genres_id": [15, 14, 3],
         "director": "Екатерина Пирожкова",
         "release_year": 2021,
         "rating": 7.8,
         "rating_count": 1187
     },
-    "8": {
-        "id": 8,
+    {
         "title": "Пёс на крыше",
-        "genres_id": [
-            19,
-            3,
-            9
-        ],
+        "genres_id": [19, 3, 9],
         "director": "Виталий Шариков",
         "release_year": 2020,
         "rating": 8.3,
         "rating_count": 872
     },
-    "9": {
-        "id": 9,
+    {
         "title": "Кот против машины времени",
-        "genres_id": [
-            7,
-            8,
-            1
-        ],
+        "genres_id": [7, 8, 1],
         "director": "София Мурлыкаева",
         "release_year": 2024,
         "rating": 9.0,
         "rating_count": 1432
     },
-    "10": {
-        "id": 10,
+    {
         "title": "Огурцы атакуют",
-        "genres_id": [
-            1,
-            5,
-            3
-        ],
+        "genres_id": [1, 5, 3],
         "director": "Дмитрий Хрустальный",
         "release_year": 2023,
         "rating": 6.5,
         "rating_count": 1125
     },
-    "11": {
-        "id": 11,
+    {
         "title": "Секретный дневник йети",
-        "genres_id": [
-            8,
-            22,
-            23
-        ],
+        "genres_id": [8, 22, 23],
         "director": "Александра Лаптёшкина",
         "release_year": 2026,
         "rating": 8.7,
         "rating_count": 667
     },
-    "12": {
-        "id": 12,
+    {
         "title": "Торт против вселенной",
-        "genres_id": [
-            3,
-            7,
-            25
-        ],
+        "genres_id": [3, 7, 25],
         "director": "Павел Булкин",
         "release_year": 2027,
         "rating": 7.9,
         "rating_count": 421
     },
-    "13": {
-        "id": 13,
+    {
         "title": "Кролики и правительство",
-        "genres_id": [
-            11,
-            1,
-            3
-        ],
+        "genres_id": [11, 1, 3],
         "director": "Ольга Шлёпкина",
         "release_year": 2021,
         "rating": 6.8,
         "rating_count": 1345
     },
-    "14": {
-        "id": 14,
+    {
         "title": "Бегемот в тапочках",
-        "genres_id": [
-            3,
-            19
-        ],
+        "genres_id": [3, 19],
         "director": "Василий Шуткин",
         "release_year": 2022,
         "rating": 7.4,
         "rating_count": 1583
     },
-    "15": {
-        "id": 15,
+    {
         "title": "Тарелка на Луне",
-        "genres_id": [
-            7,
-            8,
-            22
-        ],
+        "genres_id": [7, 8, 22],
         "director": "Марфа Луновская",
         "release_year": 2025,
         "rating": 8.1,
         "rating_count": 924
     },
-    "16": {
-        "id": 16,
+    {
         "title": "Дядя Фёдор против холодильника",
-        "genres_id": [
-            1,
-            2,
-            3
-        ],
+        "genres_id": [1, 2, 3],
         "director": "Игорь Блинчик",
         "release_year": 2019,
         "rating": 6.9,
         "rating_count": 2041
     },
-    "17": {
-        "id": 17,
+    {
         "title": "Танцы с кактусами",
-        "genres_id": [
-            15,
-            14,
-            3
-        ],
+        "genres_id": [15, 14, 3],
         "director": "Екатерина Пирожкова",
         "release_year": 2021,
         "rating": 7.8,
         "rating_count": 1187
     },
-    "18": {
-        "id": 18,
+    {
         "title": "Пёс на крыше",
-        "genres_id": [
-            19,
-            3,
-            9
-        ],
+        "genres_id": [19, 3, 9],
         "director": "Виталий Шариков",
         "release_year": 2020,
         "rating": 8.3,
         "rating_count": 872
     },
-    "19": {
-        "id": 19,
+    {
         "title": "Кот против машины времени",
-        "genres_id": [
-            7,
-            8,
-            1
-        ],
+        "genres_id": [7, 8, 1],
         "director": "София Мурлыкаева",
         "release_year": 2024,
         "rating": 9.0,
         "rating_count": 1432
     },
-    "20": {
-        "id": 20,
+    {
         "title": "Огурцы атакуют",
-        "genres_id": [
-            1,
-            5,
-            3
-        ],
+        "genres_id": [1, 5, 3],
         "director": "Дмитрий Хрустальный",
         "release_year": 2023,
         "rating": 6.5,
         "rating_count": 1125
     },
-    "21": {
-        "id": 21,
+    {
         "title": "Секретный дневник йети",
-        "genres_id": [
-            8,
-            22,
-            23
-        ],
+        "genres_id": [8, 22, 23],
         "director": "Александра Лаптёшкина",
         "release_year": 2026,
         "rating": 8.7,
         "rating_count": 667
     },
-    "22": {
-        "id": 22,
+    {
         "title": "Торт против вселенной",
-        "genres_id": [
-            3,
-            7,
-            25
-        ],
+        "genres_id": [3, 7, 25],
         "director": "Павел Булкин",
         "release_year": 2027,
         "rating": 7.9,
         "rating_count": 421
     },
-    "23": {
-        "id": 23,
+    {
         "title": "Кролики и правительство",
-        "genres_id": [
-            11,
-            1,
-            3
-        ],
+        "genres_id": [11, 1, 3],
         "director": "Ольга Шлёпкина",
         "release_year": 2021,
         "rating": 6.8,
         "rating_count": 1345
     },
-    "24": {
-        "id": 24,
+    {
         "title": "Велосипед против динозавра",
-        "genres_id": [
-            2,
-            1,
-            7
-        ],
+        "genres_id": [2, 1, 7],
         "director": "Григорий Пружинкин",
         "release_year": 2030,
         "rating": 7.2,
         "rating_count": 998
     },
-    "25": {
-        "id": 25,
+    {
         "title": "Мороженое на Марсе",
-        "genres_id": [
-            7,
-            8,
-            3
-        ],
+        "genres_id": [7, 8, 3],
         "director": "Надежда Сливкина",
         "release_year": 2028,
         "rating": 8.5,
         "rating_count": 730
     },
-    "26": {
-        "id": 26,
+    {
         "title": "Слон в музыкальной шляпе",
-        "genres_id": [
-            14,
-            3,
-            15
-        ],
+        "genres_id": [14, 3, 15],
         "director": "Валерий Трусов",
         "release_year": 2018,
         "rating": 6.7,
         "rating_count": 1102
     },
-    "27": {
-        "id": 27,
+    {
         "title": "Пиратский понедельник",
-        "genres_id": [
-            2,
-            1,
-            3
-        ],
+        "genres_id": [2, 1, 3],
         "director": "Людмила Капустина",
         "release_year": 2017,
         "rating": 7.6,
         "rating_count": 1401
     },
-    "28": {
-        "id": 28,
+    {
         "title": "Танцующие кактусы 2",
-        "genres_id": [
-            15,
-            14,
-            3
-        ],
+        "genres_id": [15, 14, 3],
         "director": "Екатерина Пирожкова",
         "release_year": 2023,
         "rating": 7.9,
         "rating_count": 923
     },
-    "29": {
-        "id": 29,
+    {
         "title": "Бананы в космосе",
-        "genres_id": [
-            7,
-            8,
-            3
-        ],
+        "genres_id": [7, 8, 3],
         "director": "Семен Обезьянов",
         "release_year": 2025,
         "rating": 8.2,
         "rating_count": 555
     },
-    "30": {
-        "id": 30,
+    {
         "title": "Мыши и ковбои",
-        "genres_id": [
-            2,
-            1,
-            3
-        ],
+        "genres_id": [2, 1, 3],
         "director": "Алексей Сыров",
         "release_year": 2019,
         "rating": 6.9,
         "rating_count": 1340
     },
-    "31": {
-        "id": 31,
+    {
         "title": "Доктор Пельмень",
-        "genres_id": [
-            3,
-            4,
-            9
-        ],
+        "genres_id": [3, 4, 9],
         "director": "Ирина Вареникина",
         "release_year": 2021,
         "rating": 7.5,
         "rating_count": 874
     },
-    "32": {
-        "id": 32,
+    {
         "title": "Кот в сапогах против принтера",
-        "genres_id": [
-            1,
-            3,
-            7
-        ],
+        "genres_id": [1, 3, 7],
         "director": "Михаил Лапкин",
         "release_year": 2024,
         "rating": 8.0,
         "rating_count": 642
     },
-    "33": {
-        "id": 33,
+    {
         "title": "Сырные войны",
-        "genres_id": [
-            1,
-            2,
-            3
-        ],
+        "genres_id": [1, 2, 3],
         "director": "Анастасия Сырникова",
         "release_year": 2022,
         "rating": 7.3,
         "rating_count": 987
     },
-    "34": {
-        "id": 34,
+    {
         "title": "Панда против тостера",
-        "genres_id": [
-            1,
-            3,
-            7
-        ],
+        "genres_id": [1, 3, 7],
         "director": "Виктория Пушистая",
         "release_year": 2023,
         "rating": 7.1,
         "rating_count": 821
     },
-    "35": {
-        "id": 35,
+    {
         "title": "Робот-бариста",
-        "genres_id": [
-            7,
-            3,
-            14
-        ],
+        "genres_id": [7, 3, 14],
         "director": "Никита Эспрессов",
         "release_year": 2025,
         "rating": 8.4,
         "rating_count": 610
     },
-    "36": {
-        "id": 36,
+    {
         "title": "Гигантский хот-дог",
-        "genres_id": [
-            3,
-            19
-        ],
+        "genres_id": [3, 19],
         "director": "Олег Сосискин",
         "release_year": 2021,
         "rating": 6.9,
         "rating_count": 940
     },
-    "37": {
-        "id": 37,
+    {
         "title": "Кролики на Луне",
-        "genres_id": [
-            8,
-            2,
-            3
-        ],
+        "genres_id": [8, 2, 3],
         "director": "Мария Морковкина",
         "release_year": 2024,
         "rating": 8.2,
         "rating_count": 523
     },
-    "38": {
-        "id": 38,
+    {
         "title": "Супер-пельмени",
-        "genres_id": [
-            1,
-            3,
-            21
-        ],
+        "genres_id": [1, 3, 21],
         "director": "Георгий Лапшов",
         "release_year": 2022,
         "rating": 7.5,
         "rating_count": 711
     },
-    "39": {
-        "id": 39,
+    {
         "title": "Викинги и блинчики",
-        "genres_id": [
-            2,
-            3,
-            12
-        ],
+        "genres_id": [2, 3, 12],
         "director": "Ольга Блинкина",
         "release_year": 2020,
         "rating": 7.8,
         "rating_count": 804
     },
-    "40": {
-        "id": 40,
+    {
         "title": "Пельмень в космосе",
-        "genres_id": [
-            7,
-            8,
-            3
-        ],
+        "genres_id": [7, 8, 3],
         "director": "Игорь Вареников",
         "release_year": 2026,
         "rating": 8.6,
         "rating_count": 412
     },
-    "41": {
-        "id": 41,
+    {
         "title": "Слон на скейтборде",
-        "genres_id": [
-            1,
-            3,
-            18
-        ],
+        "genres_id": [1, 3, 18],
         "director": "Леонид Трамвайкин",
         "release_year": 2019,
         "rating": 7.2,
         "rating_count": 679
     },
-    "42": {
-        "id": 42,
+    {
         "title": "Кот против холодильника 2",
-        "genres_id": [
-            1,
-            3,
-            7
-        ],
+        "genres_id": [1, 3, 7],
         "director": "София Мурлыкаева",
         "release_year": 2028,
         "rating": 8.1,
         "rating_count": 515
     },
-    "43": {
-        "id": 43,
+    {
         "title": "Мыши и шоколад",
-        "genres_id": [
-            3,
-            19
-        ],
+        "genres_id": [3, 19],
         "director": "Алексей Сыров",
         "release_year": 2023,
         "rating": 7.4,
         "rating_count": 642
     },
-    "44": {
-        "id": 44,
+    {
         "title": "Доктор Морковкин",
-        "genres_id": [
-            3,
-            4,
-            9
-        ],
+        "genres_id": [3, 4, 9],
         "director": "Ирина Вареникина",
         "release_year": 2022,
         "rating": 7.6,
         "rating_count": 578
     },
-    "45": {
-        "id": 45,
+    {
         "title": "Пингвины на пляже",
-        "genres_id": [
-            3,
-            19,
-            2
-        ],
+        "genres_id": [3, 19, 2],
         "director": "Валентина Лёдова",
         "release_year": 2025,
         "rating": 8.0,
         "rating_count": 433
     },
-    "46": {
-        "id": 46,
+    {
         "title": "Торт и пришельцы",
-        "genres_id": [
-            3,
-            7,
-            25
-        ],
+        "genres_id": [3, 7, 25],
         "director": "Павел Булкин",
         "release_year": 2027,
         "rating": 7.9,
         "rating_count": 421
     },
-    "47": {
-        "id": 47,
+    {
         "title": "Кролики и драконы",
-        "genres_id": [
-            8,
-            2,
-            3
-        ],
+        "genres_id": [8, 2, 3],
         "director": "Анастасия Зайцева",
         "release_year": 2024,
         "rating": 8.3,
         "rating_count": 376
     },
-    "48": {
-        "id": 48,
+    {
         "title": "Гигантская морковка",
-        "genres_id": [
-            3,
-            2,
-            19
-        ],
+        "genres_id": [3, 2, 19],
         "director": "Семен Овощкин",
         "release_year": 2021,
         "rating": 7.0,
         "rating_count": 512
     },
-    "49": {
-        "id": 49,
+    {
         "title": "Йети на вечеринке",
-        "genres_id": [
-            8,
-            3,
-            22
-        ],
+        "genres_id": [8, 3, 22],
         "director": "Александра Лаптёшкина",
         "release_year": 2026,
         "rating": 8.7,
         "rating_count": 667
     },
-    "50": {
-        "id": 50,
+    {
         "title": "Пельмени против зомби",
-        "genres_id": [
-            1,
-            6,
-            3
-        ],
+        "genres_id": [1, 6, 3],
         "director": "Игорь Хрустальный",
         "release_year": 2023,
         "rating": 6.8,
         "rating_count": 431
     },
-    "51": {
-        "id": 51,
+    {
         "title": "Сырная империя",
-        "genres_id": [
-            1,
-            3,
-            11
-        ],
+        "genres_id": [1, 3, 11],
         "director": "Анастасия Сырникова",
         "release_year": 2022,
         "rating": 7.3,
         "rating_count": 514
     },
-    "52": {
-        "id": 52,
+    {
         "title": "Танцующие слоны",
-        "genres_id": [
-            3,
-            15
-        ],
+        "genres_id": [3, 15],
         "director": "Екатерина Пирожкова",
         "release_year": 2023,
         "rating": 7.8,
         "rating_count": 492
     },
-    "53": {
-        "id": 53,
+    {
         "title": "Кот в шляпе и холодильник",
-        "genres_id": [
-            1,
-            3,
-            7
-        ],
+        "genres_id": [1, 3, 7],
         "director": "Михаил Лапкин",
         "release_year": 2024,
         "rating": 8.0,
         "rating_count": 642
     },
-    "54": {
-        "id": 54,
+    {
         "title": "Бананы на луне",
-        "genres_id": [
-            7,
-            8,
-            3
-        ],
+        "genres_id": [7, 8, 3],
         "director": "Семен Обезьянов",
         "release_year": 2025,
         "rating": 8.2,
         "rating_count": 555
     },
-    "55": {
-        "id": 55,
+    {
         "title": "Робот и морковь",
-        "genres_id": [
-            7,
-            3,
-            14
-        ],
+        "genres_id": [7, 3, 14],
         "director": "Никита Эспрессов",
         "release_year": 2025,
         "rating": 8.4,
         "rating_count": 610
     },
-    "56": {
-        "id": 56,
+    {
         "title": "Слон и тостер",
-        "genres_id": [
-            1,
-            3,
-            7
-        ],
+        "genres_id": [1, 3, 7],
         "director": "Виктория Пушистая",
         "release_year": 2023,
         "rating": 7.1,
         "rating_count": 821
     },
-    "57": {
-        "id": 57,
+    {
         "title": "Мыши и пельмени",
-        "genres_id": [
-            3,
-            19
-        ],
+        "genres_id": [3, 19],
         "director": "Алексей Сыров",
         "release_year": 2023,
         "rating": 7.4,
         "rating_count": 642
     },
-    "58": {
-        "id": 58,
+    {
         "title": "Доктор Холодильников",
-        "genres_id": [
-            3,
-            4,
-            9
-        ],
+        "genres_id": [3, 4, 9],
         "director": "Ирина Вареникина",
         "release_year": 2022,
         "rating": 7.6,
         "rating_count": 578
     },
-    "59": {
-        "id": 59,
+    {
         "title": "Пингвины против пиццы",
-        "genres_id": [
-            3,
-            19,
-            2
-        ],
+        "genres_id": [3, 19, 2],
         "director": "Валентина Лёдова",
         "release_year": 2025,
         "rating": 8.0,
         "rating_count": 433
     },
-    "60": {
-        "id": 60,
+    {
         "title": "Кролики и морковь",
-        "genres_id": [
-            8,
-            2,
-            3
-        ],
+        "genres_id": [8, 2, 3],
         "director": "Анастасия Зайцева",
         "release_year": 2024,
         "rating": 8.3,
         "rating_count": 376
     },
-    "61": {
-        "id": 61,
+    {
         "title": "Гигантские блинчики",
-        "genres_id": [
-            3,
-            2,
-            19
-        ],
+        "genres_id": [3, 2, 19],
         "director": "Семен Овощкин",
         "release_year": 2021,
         "rating": 7.0,
         "rating_count": 512
     },
-    "62": {
-        "id": 62,
+    {
         "title": "Йети и пельмени",
-        "genres_id": [
-            8,
-            3,
-            22
-        ],
+        "genres_id": [8, 3, 22],
         "director": "Александра Лаптёшкина",
         "release_year": 2026,
         "rating": 8.7,
         "rating_count": 667
     }
-}
+]
+
+
+
+for movie in movies_list:
+    movie_manager.add(
+        movie_name=movie["title"],
+        genres_id=movie["genres_id"],
+        director=movie["director"],
+        release_year=movie["release_year"],
+        raiting=movie.get("rating"),
+        rating_count=movie.get("rating_count")
+    )
+    print("Вроде ЗБС")

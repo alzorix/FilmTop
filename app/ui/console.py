@@ -4,19 +4,20 @@ import re
 service = UserService()
 
 def run_console():
-    print(r"""
-███████╗██╗██╗░░░░░███╗░░░███╗████████╗░█████╗░██████╗░     1. Регистрация
-██╔════╝██║██║░░░░░████╗░████║╚══██╔══╝██╔══██╗██╔══██╗     2. Вход
-█████╗░░██║██║░░░░░██╔████╔██║░░░██║░░░██║░░██║██████╔╝     3. Список фильмов
-██╔══╝░░██║██║░░░░░██║╚██╔╝██║░░░██║░░░██║░░██║██╔═══╝░     4. Оценить фильм
-██║░░░░░██║███████╗██║░╚═╝░██║░░░██║░░░╚█████╔╝██║░░░░░     5. Рекомендации
-╚═╝░░░░░╚═╝╚══════╝╚═╝░░░░░╚═╝░░░╚═╝░░░░╚════╝░╚═╝░░░░░     6. Настроить любимые жанры
-                                                            0. Выход
-""")
+
 
     user = None
-
+    last_recommendation = None
     while True:
+        print(r"""
+        ███████╗██╗██╗░░░░░███╗░░░███╗████████╗░█████╗░██████╗░     1. Регистрация
+        ██╔════╝██║██║░░░░░████╗░████║╚══██╔══╝██╔══██╗██╔══██╗     2. Вход
+        █████╗░░██║██║░░░░░██╔████╔██║░░░██║░░░██║░░██║██████╔╝     3. Список фильмов
+        ██╔══╝░░██║██║░░░░░██║╚██╔╝██║░░░██║░░░██║░░██║██╔═══╝░     4. Оценить фильм
+        ██║░░░░░██║███████╗██║░╚═╝░██║░░░██║░░░╚█████╔╝██║░░░░░     5. Рекомендации
+        ╚═╝░░░░░╚═╝╚══════╝╚═╝░░░░░╚═╝░░░╚═╝░░░░╚════╝░╚═╝░░░░░     6. Настроить любимые жанры
+                                                                    0. Выход
+        """)
         choice = input(f"\nПользователь: {user.nickname if user else 'Нет'} | Выберите действие: ")
 
         if choice == "1":
@@ -36,7 +37,7 @@ def run_console():
         elif choice == "3":
             service.list_movies()
         
-        elif choice in ("4", "5", "6") and user is None:
+        elif choice in ("4", "5", "6","999") and user is None:
             print("Сначала войдите в систему (2)")
             
         elif choice == "4":
@@ -54,14 +55,71 @@ def run_console():
                 print(f"Ошибка: {e}")
 
         elif choice == "5":
-            recs = service.get_recommendations(user.id)
+            print("Вы попали в меню получения рекомендаций!")
+            print("Список доступных команд:")
+            print(r"""
+                 1. Получить общие рекомендации
+                 2. Получить рекомендации по жанрам
+                 3. Получить рекомендации по рейтингу
+                 4. Получить рекомендации по схожим интересам
+            """)
+            choice = input(f"\nПользователь: {user.nickname if user else 'Нет'} | Выберите действие: ")
+
+            match choice:
+                case "1":
+                    recs = service.get_recommendations(user_id=user.id)
+                case "2":
+                    recs = service.get_recommendations_by_genre(user_id=user.id)
+
+                case "3":
+                    recs = service.get_recommendations_by_rating(user_id=user.id)
+
+                case "4":
+                    recs = service.get_recommendations_by_similar_users(user_id=user.id)
+                case "_":
+                    print("Неверная команда,автоматически выбран вариант - Получить общие рекомендации")
+                    recs = service.get_recommendations(user_id=user.id)
+
             
             if recs:
-                print("\nРекомендованные фильмы:")
-                for m in recs:
-                    print(f"({m.rating}/10) {m.id}. {m.title} ({m.release_year})")
+                print("Рекомендации успещно получены,хотите их отсорировать?")
+                print("Список доступных команд:")
+                print(r"""
+                     1. Да
+                     2. Нет
+                """)
+                choice = input(f"\nПользователь: {user.nickname if user else 'Нет'} | Выберите действие: ")
+                match choice:
+
+                    case "1":
+                        min_rait,min_year,max_year = input("Введите через запятую минимальный рейтинг,минимальный год выхода,максимальный год выхода:").split(",")
+                        if min_rait != '':
+                            min_rait = int(min_rait)
+                        else:
+                            min_rait = 0
+                        if min_year != '':
+                            min_year = int(min_year)
+                        else:
+                            min_year = 0
+                        if max_year != '':
+                            max_year = int(max_year)
+                        else:
+                            max_year = 10000
+                        recs = service.filter_recommendations(recs,int(min_rait),int(min_year),int(max_year))
+                        print("\nРекомендованные фильмы:")
+                        for m in recs:
+                            print(f"({m.rating}/10) id:{m.id}. {m.title} ({m.release_year}),  {m.director}")
+
+                    case "2":
+                        print("\nРекомендованные фильмы:")
+                        for m in recs:
+                            print(f"({m.rating}/10) id:{m.id}. {m.title} ({m.release_year}),  {m.director}")
+
+
             else:
                 print("Нет рекомендаций. Попробуйте оценить больше фильмов и настроить жанры.")
+
+
         
         elif choice == "6":
             genres = service.list_genres()
@@ -79,6 +137,22 @@ def run_console():
                     
             except ValueError:
                 print("Ошибка ввода")
+
+        elif choice == "999":
+
+            print("Вы попали в секретное меню:")
+            print("Список доступных команд:")
+            r"""
+                 1. Удалить аккаунт
+            """
+            choice = input(f"\nПользователь: {user.nickname if user else 'Нет'} | Выберите действие: ")
+            if choice == "1":
+                service.delete_user(user.id)
+
+
+
+
+
 
         elif choice == "0":
             print("Выход...")

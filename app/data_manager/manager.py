@@ -140,10 +140,10 @@ class Movie_Manager(Data_Manager):
     def __init__(self, data_path=movie_data_path, data_manager=Json_File_Worker):
         super().__init__(data_path, data_manager, Movie)
 
-    def add(self, movie_name, genres_id, director, release_year):
+    def add(self, movie_name, genres_id, director, release_year,raiting=None,rating_count=None):
         data = self.manager.read_data() or {}
         new_id = max((int(k) for k in data.keys()), default=0) + 1
-        new_movie = Movie(new_id, movie_name, genres_id, director, release_year)
+        new_movie = Movie(new_id, movie_name, genres_id, director, release_year,raiting,rating_count)
         data[str(new_id)] = new_movie
         self.manager.write_data(data)
         return new_movie
