@@ -32,7 +32,7 @@ class SimilarUsersRecommendationStrategy(RecommendationStrategy):
                         genre_matches += 1
             
             for mid, movie_rating in self.user.movie_history_with_rating.items():
-                for other_mid,other_movie_rating in other_user_movie_history:
+                for other_mid,other_movie_rating in other_user_movie_history.items():
                     if mid == other_mid:
                         if movie_rating - other_movie_rating <= 1:
                             movie_matches += 1
