@@ -21,6 +21,11 @@ class UserService:
             print("Пользователь не найден")
             return None
 
+    def delete_user(self, user_id: int):
+        try:
+            self.user_manager.remove(user_id)
+        except KeyError:
+            print("Пользователь не существует")
     def list_genres(self):
         genres = self.genre_manager.read_all_data_as_class()
         if not genres:
@@ -104,3 +109,96 @@ class UserService:
                 pass
                 
         return movies
+
+
+    def get_recommendations_by_genre(self, user_id: int):
+        user = self.user_manager.get_class_for_index(str(user_id))
+
+        if user is None:
+            print("Пользователь не найден")
+            return []
+
+        if not user.preferred_genres:
+            print("У пользователя нет предпочтительных жанров")
+            return []
+
+        rec = GenreRecommendationStrategy(user).get_recommendations()
+
+        movies = []
+        for mid in rec:
+            try:
+                movies.append(self.movie_manager.get_class_for_index(str(mid)))
+            except KeyError:
+                pass
+
+        return movies
+
+
+    def get_recommendations_by_rating(self, user_id: int):
+        user = self.user_manager.get_class_for_index(str(user_id))
+
+        if user is None:
+            print("Пользователь не найден")
+            return []
+
+        rec = RatingRecommendationStrategy(user).get_recommendations()
+
+        movies = []
+        for mid in rec:
+            try:
+                movies.append(self.movie_manager.get_class_for_index(str(mid)))
+            except KeyError:
+                pass
+
+        return movies
+
+
+    def get_recommendations_by_similar_users(self, user_id: int):
+        user = self.user_manager.get_class_for_index(str(user_id))
+
+        if user is None:
+            print("Пользователь не найден")
+            return []
+
+        rec = SimilarUsersRecommendationStrategy(user).get_recommendations()
+
+        movies = []
+        for mid in rec:
+            try:
+                movies.append(self.movie_manager.get_class_for_index(str(mid)))
+            except KeyError:
+                pass
+
+        return movies
+
+    def filter_recommendations(self, movies: list, min_rating: int =None, min_year: int = None, max_year: int = None) -> list:
+        """
+        Фильтрует фильмы по минимальному рейтингу и диапазону года выпуска.
+
+        Args:
+            movies (list из классов): список рекомендованных фильмов.
+            min_rating (float | None): минимальный допустимый рейтинг.
+            min_year (int | None): нижняя граница года выпуска.
+            max_year (int | None): верхняя граница года выпуска.
+
+        Returns:
+            List[Movie]: список фильмов, прошедших фильтрацию.
+        """
+        filtered = []
+
+        for movie in movies:
+            # фильтр рейтинга
+            if min_rating is not None and movie.rating < min_rating:
+                continue
+
+            # фильтр диапазона года выпуска
+            if min_year is not None and movie.release_year < min_year:
+                continue
+
+            if max_year is not None and movie.release_year > max_year:
+                continue
+
+            filtered.append(movie)
+
+        return filtered
+

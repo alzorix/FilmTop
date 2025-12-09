@@ -4,9 +4,9 @@ from app.models.user import User
 from app.models.genre import Genre
 from app.models.movie import Movie
 
-# -----------------------
+
 # Fixtures для временных файлов
-# -----------------------
+
 @pytest.fixture
 def user_file(tmp_path):
     file = tmp_path / "user.json"
@@ -25,9 +25,6 @@ def movie_file(tmp_path):
     file.write_text("{}", encoding="utf-8")
     return str(file)
 
-# -----------------------
-# User_Manager tests
-# -----------------------
 def test_user_add(user_file):
     manager = User_Manager(data_path=user_file, data_manager=Json_File_Worker)
     u = manager.add("Alex", {1: 8}, [1, 2])
@@ -63,13 +60,11 @@ def test_user_remove(user_file):
 def test_user_get_by_id(user_file):
     manager = User_Manager(data_path=user_file, data_manager=Json_File_Worker)
     manager.add("Alex")
-    user_obj = manager.get_data_for_index(1)
+    user_obj = manager.get_class_for_index(1)
     assert isinstance(user_obj, User)
     assert user_obj.nickname == "Alex"
 
-# -----------------------
-# Genre_Manager tests
-# -----------------------
+
 def test_genre_add(genre_file):
     manager = Genre_Manager(data_path=genre_file, data_manager=Json_File_Worker)
     g = manager.add("Action")
@@ -86,9 +81,7 @@ def test_genre_update(genre_file):
     data = manager.read_all_data()
     assert data["1"]["name"] == "Adventure"
 
-# -----------------------
-# Movie_Manager tests
-# -----------------------
+
 def test_movie_add(movie_file):
     manager = Movie_Manager(data_path=movie_file, data_manager=Json_File_Worker)
     m = manager.add("Alien", [1], "Ridley", 1979)
