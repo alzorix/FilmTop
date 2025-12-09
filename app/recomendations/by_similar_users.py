@@ -11,36 +11,44 @@ class SimilarUsersRecommendationStrategy(RecommendationStrategy):
     def get_recommendations(self):
         recommend_movie_id = set()
         current_user_movie_history_with_rating = self.user.movie_history_with_rating
-        preferred_genres = self.user.preferred_genres
+        user_preferred_genres = self.user.preferred_genres
         users_data = self.user_manager.read_all_data_as_class()
         matches = 0
 
-        if len(preferred_genres) == 0 and len(current_user_movie_history_with_rating) == 0:
+        if len(user_preferred_genres) == 0 and len(current_user_movie_history_with_rating) == 0:
             return set()
 
         for other_user in users_data:
-            other_user_liked_films = []
-
             if other_user.id == self.user.id:
                 continue
 
-            matches = 0
+            genre_matches = 0
+            movie_matches = 0
+            other_user_movie_history = other_user.movie_history_with_rating
 
-            for genre in preferred_genres:
+            for genre in user_preferred_genres:
                 for another_preference in other_user.preferred_genres:
                     if genre == another_preference:
-                        matches += 1
+                        genre_matches += 1
             
-            for movie_id in current_user_movie_history_with_rating.keys():
-                if current_user_movie_history_with_rating[movie_id] > 7:
-                    for other_movie_id in other_user.movie_history_with_rating.keys():
-                        if movie_id == other_movie_id and other_user.movie_history_with_rating[other_movie_id]:
+            for mid, movie_rating in self.user.movie_history_with_rating:
+                for other_mid,other_movie_rating in other_user_movie_history:
+                    if mid == other_mid:
+                        if movie_rating - other_movie_rating <= 1:
                             matches += 1
-                            other_user_liked_films.append(other_movie_id)
 
-            if (matches / (len(preferred_genres)+len([mov for mov in current_user_movie_history_with_rating if float(usrecs.user.movie_history_with_rating[mov]) > 7.0]))) > 0.5:
-                for mid in other_user_liked_films:
-                    if str(mid) not in current_user_movie_history_with_rating.keys():
-                        recommend_movie_id.add(mid)
+            
+            if genre_matches > 0:
+                if genre_matches/len(user_preferred_genres) > 0.5:
+                    for mid, rating in other_user_movie_history.items:
+                        if rating > 7:
+                            if str(mid) not in current_user_movie_history_with_rating.keys():
+                                recommend_movie_id.add(mid)
+            elif movie_matches > 0:
+                if movie_matches/len(current_user_movie_history_with_rating) > 0.2:
+                    for mid, rating in other_user_movie_history.items:
+                        if rating > 7:
+                            if str(mid) not in current_user_movie_history_with_rating.keys():
+                                recommend_movie_id.add(mid)
 
         return recommend_movie_id
