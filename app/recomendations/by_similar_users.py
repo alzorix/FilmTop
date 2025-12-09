@@ -35,7 +35,7 @@ class SimilarUsersRecommendationStrategy(RecommendationStrategy):
                 for other_mid,other_movie_rating in other_user_movie_history:
                     if mid == other_mid:
                         if movie_rating - other_movie_rating <= 1:
-                            matches += 1
+                            movie_matches += 1
 
             
             if genre_matches > 0:
