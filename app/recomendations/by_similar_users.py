@@ -40,13 +40,13 @@ class SimilarUsersRecommendationStrategy(RecommendationStrategy):
             
             if genre_matches > 0:
                 if genre_matches/len(user_preferred_genres) > 0.5:
-                    for mid, rating in other_user_movie_history.items:
+                    for mid, rating in other_user_movie_history.items():
                         if rating > 7:
                             if str(mid) not in current_user_movie_history_with_rating.keys():
                                 recommend_movie_id.add(mid)
             elif movie_matches > 0:
                 if movie_matches/len(current_user_movie_history_with_rating) > 0.2:
-                    for mid, rating in other_user_movie_history.items:
+                    for mid, rating in other_user_movie_history.items():
                         if rating > 7:
                             if str(mid) not in current_user_movie_history_with_rating.keys():
                                 recommend_movie_id.add(mid)
