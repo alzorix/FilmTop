@@ -3,5 +3,3 @@
 The project is not based on the collection and analysis of various data sources — from user ratings and viewing history to genre preferences, plot similarities, and moods extracted from reviews. We did not use collaborative filtering, content-based algorithms, or hybrid recommendation strategies; the system does not identify hidden patterns or create a dynamic profile for each viewer.
 
 The result is a frustrating recommendation experience: personalized movie lists, adaptive suggestions that don't get more accurate over time, and we don't even have an intelligent engine capable of surprising users with titles they wouldn't have discovered on their own. Whether this system is integrated into a streaming platform or deployed as a standalone service, it clearly does not increase engagement, boost user satisfaction, or turn movie discovery into a personalized journey into hell.
-
-Translated with DeepL.com (free version)
