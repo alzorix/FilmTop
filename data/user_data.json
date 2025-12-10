@@ -30,7 +30,9 @@
         "movie_history_with_rating": {
             "3": 10.0
         },
-        "preferred_genres": []
+        "preferred_genres": [
+            5
+        ]
     },
     "4": {
         "id": 4,
