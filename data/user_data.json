@@ -31,5 +31,389 @@
             "3": 10.0
         },
         "preferred_genres": []
+    },
+        "4": {
+        "id": 4,
+        "nickname": "Answer42",
+        "movie_history_with_rating": {
+            "5": 3.3
+        },
+        "preferred_genres": [
+            [
+                5,
+                17,
+                28,
+                19,
+                8
+            ]
+        ]
+    },
+    "5": {
+        "id": 5,
+        "nickname": "TheFifthBrat",
+        "movie_history_with_rating": {
+            "37": 6.6
+        },
+        "preferred_genres": [
+            [
+                10,
+                15,
+                30,
+                24,
+                12
+            ]
+        ]
+    },
+    "6": {
+        "id": 6,
+        "nickname": "SasavotsHand",
+        "movie_history_with_rating": {
+            "19": 2.4
+        },
+        "preferred_genres": [
+            [
+                3,
+                10,
+                14,
+                30,
+                8
+            ]
+        ]
+    },
+    "7": {
+        "id": 7,
+        "nickname": "TheFiveArchon",
+        "movie_history_with_rating": {
+            "5": 4.9
+        },
+        "preferred_genres": [
+            [
+                14,
+                16,
+                15,
+                11,
+                13
+            ]
+        ]
+    },
+    "8": {
+        "id": 8,
+        "nickname": "FifthOracle",
+        "movie_history_with_rating": {
+            "50": 10
+        },
+        "preferred_genres": [
+            [
+                28,
+                6,
+                30,
+                16,
+                22
+            ]
+        ]
+    },
+    "9": {
+        "id": 9,
+        "nickname": "SusVotis",
+        "movie_history_with_rating": {
+            "3": 9.4
+        },
+        "preferred_genres": [
+            [
+                12,
+                10,
+                5,
+                21,
+                24
+            ]
+        ]
+    },
+    "10": {
+        "id": 10,
+        "nickname": "BratOf42",
+        "movie_history_with_rating": {
+            "51": 7.5
+        },
+        "preferred_genres": [
+            [
+                7,
+                19,
+                4,
+                17,
+                16
+            ]
+        ]
+    },
+    "11": {
+        "id": 11,
+        "nickname": "SasavotsHand",
+        "movie_history_with_rating": {
+            "16": 0.8
+        },
+        "preferred_genres": [
+            [
+                21,
+                26,
+                4,
+                9,
+                8
+            ]
+        ]
+    },
+    "12": {
+        "id": 12,
+        "nickname": "NeonSpectre",
+        "movie_history_with_rating": {
+            "32": 8.1
+        },
+        "preferred_genres": [
+            [
+                7,
+                25,
+                24,
+                23,
+                19
+            ]
+        ]
+    },
+    "13": {
+        "id": 13,
+        "nickname": "NeonSpectre",
+        "movie_history_with_rating": {
+            "33": 9.8
+        },
+        "preferred_genres": [
+            [
+                22,
+                13,
+                1,
+                14,
+                17
+            ]
+        ]
+    },
+    "14": {
+        "id": 14,
+        "nickname": "VesselOfSasavot",
+        "movie_history_with_rating": {
+            "1": 6.1
+        },
+        "preferred_genres": [
+            [
+                20,
+                6,
+                21,
+                26,
+                24
+            ]
+        ]
+    },
+    "15": {
+        "id": 15,
+        "nickname": "TheFiveArchon",
+        "movie_history_with_rating": {
+            "41": 2.3
+        },
+        "preferred_genres": [
+            [
+                21,
+                19,
+                24,
+                10,
+                11
+            ]
+        ]
+    },
+    "16": {
+        "id": 16,
+        "nickname": "TheQuaestorFive",
+        "movie_history_with_rating": {
+            "37": 0.1
+        },
+        "preferred_genres": [
+            [
+                29,
+                10,
+                9,
+                6,
+                19
+            ]
+        ]
+    },
+    "17": {
+        "id": 17,
+        "nickname": "PixelPioneer",
+        "movie_history_with_rating": {
+            "24": 8.5
+        },
+        "preferred_genres": [
+            [
+                24,
+                9,
+                1,
+                5,
+                19
+            ]
+        ]
+    },
+    "18": {
+        "id": 18,
+        "nickname": "CircuitWraith",
+        "movie_history_with_rating": {
+            "9": 3.9
+        },
+        "preferred_genres": [
+            [
+                3,
+                13,
+                30,
+                21,
+                14
+            ]
+        ]
+    },
+    "19": {
+        "id": 19,
+        "nickname": "QuintusSqua",
+        "movie_history_with_rating": {
+            "52": 7.6
+        },
+        "preferred_genres": [
+            [
+                30,
+                20,
+                2,
+                11,
+                5
+            ]
+        ]
+    },
+    "20": {
+        "id": 20,
+        "nickname": "QuintusSqua",
+        "movie_history_with_rating": {
+            "56": 8.3
+        },
+        "preferred_genres": [
+            [
+                5,
+                7,
+                16,
+                30,
+                25
+            ]
+        ]
+    },
+    "21": {
+        "id": 21,
+        "nickname": "FifthOracle",
+        "movie_history_with_rating": {
+            "57": 1.1
+        },
+        "preferred_genres": [
+            [
+                14,
+                2,
+                15,
+                8,
+                22
+            ]
+        ]
+    },
+    "22": {
+        "id": 22,
+        "nickname": "ChosenByTheVow",
+        "movie_history_with_rating": {
+            "2": 5.1
+        },
+        "preferred_genres": [
+            [
+                9,
+                6,
+                2,
+                13,
+                1
+            ]
+        ]
+    },
+    "23": {
+        "id": 23,
+        "nickname": "FifthOracle",
+        "movie_history_with_rating": {
+            "53": 8.8
+        },
+        "preferred_genres": [
+            [
+                30,
+                25,
+                6,
+                21,
+                8
+            ]
+        ]
+    },
+    "24": {
+        "id": 24,
+        "nickname": "OathOfSasavot",
+        "movie_history_with_rating": {
+            "34": 0.2
+        },
+        "preferred_genres": [
+            [
+                22,
+                5,
+                23,
+                20,
+                29
+            ]
+        ]
+    },
+    "25": {
+        "id": 25,
+        "nickname": "BratOf42",
+        "movie_history_with_rating": {
+            "49": 7.8
+        },
+        "preferred_genres": [
+            [
+                9,
+                20,
+                24,
+                14,
+                13
+            ]
+        ]
+    },
+    "26": {
+        "id": 26,
+        "nickname": "CircuitWraith",
+        "movie_history_with_rating": {
+            "21": 2.1
+        },
+        "preferred_genres": [
+            [
+                11,
+                16,
+                2,
+                25,
+                5
+            ]
+        ]
+    },
+    "27": {
+        "id": 27,
+        "nickname": "FortyTwoVows",
+        "movie_history_with_rating": {
+            "4": 8.2
+        },
+        "preferred_genres": [
+            [
+                28,
+                2,
+                26,
+                6,
+                9
+            ]
+        ]
     }
 }
