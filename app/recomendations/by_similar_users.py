@@ -13,7 +13,6 @@ class SimilarUsersRecommendationStrategy(RecommendationStrategy):
         current_user_movie_history_with_rating = self.user.movie_history_with_rating
         user_preferred_genres = self.user.preferred_genres
         users_data = self.user_manager.read_all_data_as_class()
-        matches = 0
 
         if len(user_preferred_genres) == 0 and len(current_user_movie_history_with_rating) == 0:
             return set()
@@ -37,15 +36,13 @@ class SimilarUsersRecommendationStrategy(RecommendationStrategy):
                         if movie_rating - other_movie_rating <= 1:
                             movie_matches += 1
 
-            
             if genre_matches > 0:
-                if genre_matches/len(user_preferred_genres) > 0.5:
+                if genre_matches/len(user_preferred_genres) > 0.2:
                     for mid, rating in other_user_movie_history.items():
-                        if rating > 7:
-                            if str(mid) not in current_user_movie_history_with_rating.keys():
-                                recommend_movie_id.add(mid)
+                        if str(mid) not in current_user_movie_history_with_rating.keys():
+                            recommend_movie_id.add(mid)
             elif movie_matches > 0:
-                if movie_matches/len(current_user_movie_history_with_rating) > 0.2:
+                if movie_matches/len(current_user_movie_history_with_rating) > 0.1:
                     for mid, rating in other_user_movie_history.items():
                         if rating > 7:
                             if str(mid) not in current_user_movie_history_with_rating.keys():
