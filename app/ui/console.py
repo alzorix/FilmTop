@@ -142,12 +142,22 @@ def run_console():
 
             print("Вы попали в секретное меню:")
             print("Список доступных команд:")
-            r"""
+            print(r"""
                  1. Удалить аккаунт
-            """
+                 2. Выйти из аккаунта
+                 3. Посмотреть данные профиля
+            """)
             choice = input(f"\nПользователь: {user.nickname if user else 'Нет'} | Выберите действие: ")
+
             if choice == "1":
                 service.delete_user(user.id)
+                user = None
+            elif choice == "2":
+                user = None
+            elif choice ==  "3":
+                print(service.get_profile(user.id))
+
+
 
 
 

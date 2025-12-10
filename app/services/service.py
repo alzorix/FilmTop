@@ -202,3 +202,35 @@ class UserService:
 
         return filtered
 
+    def get_profile(self, user_id: int):
+        user = self.user_manager.get_class_for_index(str(user_id))
+        lines = [
+            "╔════════════════════════════════╗",
+            "║       Данные пользователя      ║",
+            "╠════════════════════════════════╣",
+            f"║ ID: {user.id}",
+            f"║ Никнейм: {user.nickname}",
+            "║",
+            "║ История фильмов:",
+        ]
+
+        if user.movie_history_with_rating:
+            for movie_id, rating in user.movie_history_with_rating.items():
+                lines.append(f"║   • {movie_id} - {self.movie_manager.get_class_for_index(movie_id).title}: {rating}/10")
+        else:
+            lines.append("║   (пусто)")
+
+        lines += [
+            "║",
+            "║ Предпочтительные жанры:",
+        ]
+
+        if user.preferred_genres:
+            for g in user.preferred_genres:
+                lines.append(f"║   • Жанр ID {g} - {self.genre_manager.get_class_for_index(index=str(g)).name}")
+        else:
+            lines.append("║   (пусто)")
+
+        lines.append("╚════════════════════════════════╝")
+
+        return "\n".join(lines)

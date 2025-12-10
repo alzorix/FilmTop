@@ -1,19 +1,19 @@
 import json
 from abc import ABC, abstractmethod
-import os
 
 from app.models.genre import Genre
+
 from app.models.user import User
+
 from app.models.movie import Movie
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-DATA_DIR = os.path.join(BASE_DIR, "data")
-os.makedirs(DATA_DIR, exist_ok=True)
+import os
 
+DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
+DATA_DIR = "data"
 user_data_path = os.path.join(DATA_DIR, "user_data.json")
 movie_data_path = os.path.join(DATA_DIR, "movie_data.json")
 genre_data_path = os.path.join(DATA_DIR, "genre_data.json")
-
 
 class Data_File_Worker(ABC):
     def __init__(self, filename):
@@ -37,31 +37,37 @@ class Json_File_Worker(Data_File_Worker):
             with open(self._file_path, 'r', encoding='utf-8') as f:
                 return json.load(f)
         except (FileNotFoundError, json.JSONDecodeError):
+            print("Файл не найден, вернем пустой словарь")
             return {}
 
     def write_data(self, data: dict):
         os.makedirs(os.path.dirname(self._file_path), exist_ok=True)
+
         temp_dict = {}
         for key, value in data.items():
-            temp_dict[str(key)] = value.to_dict() if hasattr(value, "to_dict") else value
+            if hasattr(value, "to_dict"):
+                temp_dict[str(key)] = value.to_dict()
+            else:
+                temp_dict[str(key)] = value
+
         with open(self._file_path, 'w', encoding='utf-8') as f:
-            json.dump(temp_dict, f, indent=4, ensure_ascii=False)
+            json.dump(temp_dict, f, indent=4)
 
 
 class Data_Manager(ABC):
-    def __init__(self, data_path, data_manager: Data_File_Worker, cls):
+    def __init__(self, data_path,data_manager:Data_File_Worker,cls): #data_manager - это класс,внутри создаётся объект
         self._data_path = data_path
+        self._data_= None
         self.manager = data_manager(self._data_path)
-        self._cls = cls
-
+        self._cls = cls  # Класс объекта (User, Movie, Genre)
     @abstractmethod
     def add(self):
         pass
-
     @abstractmethod
-    def update(self, obj):
+    def update(self,det):
         pass
 
+    #Реализация по идеи одинаковая
     def remove(self, id):
         data = self.manager.read_data()
         str_id = str(id)
@@ -70,41 +76,68 @@ class Data_Manager(ABC):
             self.manager.write_data(data)
         else:
             raise KeyError(f"ID {id} не найден")
-
-    def read_all_data(self):
+    def read_all_data(self): # Если в моём коде лень разбираться - получаете данные и работаете с ними как хотите.
         return self.manager.read_data()
 
     def read_all_data_as_class(self):
         data = self.manager.read_data()
-        return [self._cls.from_dict(v) for v in data.values()]
+        data = list([data.get(elem) for elem in data])
+        data = [(lambda elem: self._cls.from_dict(elem))(elem) for elem in data]
+        return data
 
     def hard_write_data(self, data: dict):
+        # Если в моём коде лень разбираться - После  read_all_data изменённый словарь кидаете сюда
+        #По идеи должно работать
+        """
+        Универсальный метод записи словаря в файл.
+        data: словарь, где ключи — ID, значения — объекты User или словари
+        """
         self.manager.write_data(data)
 
     def get_class_for_index(self, index):
+
         data = self.manager.read_data()
         key = str(index)
         item = data.get(key)
+
         if item is None:
             raise KeyError(f"ID {index} не найден")
-        return self._cls.from_dict(item) if isinstance(item, dict) else item
+        # Делаем точно класс
+
+        if isinstance(item, dict):
+            return self._cls.from_dict(item)
+        return item
+
 
 
 class User_Manager(Data_Manager):
-    def __init__(self, data_path=user_data_path, data_manager: Data_File_Worker = Json_File_Worker):
-        super().__init__(data_path, data_manager, User)
+    def __init__(self, data_path=user_data_path, data_manager:Data_File_Worker=Json_File_Worker):
+
+        #  В data_manager нужно передавать класс,не обьект класса.
+        super().__init__(data_path, data_manager,User)
 
     def add(self, nickname: str, movie_history=None, preferred_genres=None) -> User:
+
         movie_history = movie_history or {}
         preferred_genres = preferred_genres or []
+
         data = self.manager.read_data() or {}
-        new_id = max((int(k) for k in data.keys()), default=0) + 1
+
+        # Определяем новый ID: максимум существующих + 1
+        if data:
+            new_id = max(int(k) for k in data.keys()) + 1
+        else:
+            new_id = 1
+
         new_user = User(new_id, nickname, movie_history, preferred_genres)
+
         data[str(new_id)] = new_user
+
         self.manager.write_data(data)
+
         return new_user
 
-    def update(self, user: User) -> User:
+    def update(self, user:User) -> User:
         data = self.manager.read_data()
         str_id = str(user.id)
         if str_id not in data:
@@ -116,17 +149,21 @@ class User_Manager(Data_Manager):
 
 class Genre_Manager(Data_Manager):
     def __init__(self, data_path=genre_data_path, data_manager=Json_File_Worker):
-        super().__init__(data_path, data_manager, Genre)
+        super().__init__(data_path, data_manager,Genre)
 
-    def add(self, genre_name):
+    def add(self, movie_name):
         data = self.manager.read_data() or {}
-        new_id = max((int(k) for k in data.keys()), default=0) + 1
-        new_genre = Genre(new_id, genre_name)
+        # Определяем новый ID: максимум существующих + 1
+        if data:
+            new_id = max(int(k) for k in data.keys()) + 1
+        else:
+            new_id = 1
+        new_genre = Genre(new_id, movie_name)
         data[str(new_id)] = new_genre
         self.manager.write_data(data)
         return new_genre
 
-    def update(self, genre: Genre) -> Genre:
+    def update(self, genre:Genre) -> Genre:
         data = self.manager.read_data()
         str_id = str(genre.id)
         if str_id not in data:
@@ -136,19 +173,27 @@ class Genre_Manager(Data_Manager):
         return genre
 
 
-class Movie_Manager(Data_Manager):
-    def __init__(self, data_path=movie_data_path, data_manager=Json_File_Worker):
-        super().__init__(data_path, data_manager, Movie)
 
-    def add(self, movie_name, genres_id, director, release_year,raiting=None,rating_count=None):
+
+class Movie_Manager(Data_Manager):
+
+    def __init__(self, data_path=movie_data_path, data_manager=Json_File_Worker):
+        super().__init__(data_path, data_manager,Movie)
+
+    def add(self, movie_name,genres_id,director,release_year):
         data = self.manager.read_data() or {}
-        new_id = max((int(k) for k in data.keys()), default=0) + 1
-        new_movie = Movie(new_id, movie_name, genres_id, director, release_year,raiting,rating_count)
+
+        # Определяем новый ID: максимум существующих + 1
+        if data:
+            new_id = max(int(k) for k in data.keys()) + 1
+        else:
+            new_id = 1
+        new_movie = Movie(new_id, movie_name,genres_id,director,release_year)
         data[str(new_id)] = new_movie
         self.manager.write_data(data)
         return new_movie
 
-    def update(self, movie: Movie) -> Movie:
+    def update(self, movie:Movie) -> Movie:
         data = self.manager.read_data()
         str_id = str(movie.id)
         if str_id not in data:

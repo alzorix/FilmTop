@@ -80,3 +80,4 @@ class User:
             data.get("movie_history_with_rating", {}),
             data.get("preferred_genres", [])
         )
+
